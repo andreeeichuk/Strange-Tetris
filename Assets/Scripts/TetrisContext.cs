@@ -26,7 +26,8 @@ public class TetrisContext : MVCSContext
     override public IContext Start()
     {
         base.Start();
-        /// insert start signal here
+        StartSignal startSignal = injectionBinder.GetInstance<StartSignal>();
+        startSignal.Dispatch();
         return this;
     }
 
