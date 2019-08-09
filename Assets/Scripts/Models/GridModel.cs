@@ -2,6 +2,9 @@
 
 public class GridModel : IGridModel
 {
+    [Inject]
+    public RowFilledSignal RowFilled { get; set; }
+
     private int width;
     private int height;
     private bool[,] cells;
@@ -40,7 +43,7 @@ public class GridModel : IGridModel
                 {
                     SetCell(i, y, false);
                 }
-                // fire signal that row should be destroyed;
+                RowFilled.Dispatch(y);
             }
         }
         else

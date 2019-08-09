@@ -48,6 +48,8 @@ public class TetrisContext : MVCSContext
         injectionBinder.Bind<NewGameReadySignal>().ToSingleton();
         injectionBinder.Bind<BlockTouchedSignal>().ToSingleton();
         injectionBinder.Bind<ElementsPlacedSignal>().ToSingleton();
+        injectionBinder.Bind<AllPlacedSignal>().ToSingleton();
+        injectionBinder.Bind<RowFilledSignal>().ToSingleton();
 
         mediationBinder.Bind<BoardView>().To<BoardMediator>();
         mediationBinder.Bind<MouseControlsView>().To<ControlsMediator>();

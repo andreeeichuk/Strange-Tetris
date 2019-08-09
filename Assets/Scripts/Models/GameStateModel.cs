@@ -1,9 +1,15 @@
 ﻿public class GameStateModel : IGameStateModel
 {
+    [Inject]
+    public AllPlacedSignal AllPlacedSignal { get; set; }
+
     public int FreeBlockSlots { get; private set; }
+
+    private int count;
 
     public void CreateFreeSlots(int count)
     {
+        this.count = count;
         FreeBlockSlots = count;
     }
 
@@ -12,7 +18,8 @@
         FreeBlockSlots--;
         if(FreeBlockSlots==0)
         {
-            // fire signal that we need next batch
+            AllPlacedSignal.Dispatch();
+            CreateFreeSlots(count);
         }
     }
 }

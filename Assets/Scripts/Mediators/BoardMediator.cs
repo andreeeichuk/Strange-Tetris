@@ -19,12 +19,20 @@ public class BoardMediator : Mediator
     public ElementsPlacedSignal ElementsPlacedSignal { get; set; }
 
     [Inject]
+    public RowFilledSignal RowFilled { get; set; }
+
+    [Inject]
+    public AllPlacedSignal AllPlaced { get; set; }
+
+    [Inject]
     public IGridModel GridModel { get; set; } // temporary solution
 
     public override void OnRegister()
     {
         NewGameReadySignal.AddListener(OnNewGameReady);
         ElementsPlacedSignal.AddListener(OnElementsPlaced);
+        AllPlaced.AddListener(OnAllPlaced);
+        RowFilled.AddListener(OnRowFilled);
         BoardView.newBlockSetRequest.AddListener(OnNewBlockSetRequest);
     }
 
@@ -32,6 +40,8 @@ public class BoardMediator : Mediator
     {
         NewGameReadySignal.RemoveListener(OnNewGameReady);
         ElementsPlacedSignal.RemoveListener(OnElementsPlaced);
+        AllPlaced.RemoveListener(OnAllPlaced);
+        RowFilled.RemoveListener(OnRowFilled);
         BoardView.newBlockSetRequest.RemoveListener(OnNewBlockSetRequest);
     }
     
@@ -56,5 +66,15 @@ public class BoardMediator : Mediator
     private void OnElementsPlaced(GameObject[] elements, Coordinate[] coordinates)
     {
         BoardView.SetPlacedEelements(elements, coordinates);
+    }
+
+    private void OnAllPlaced()
+    {
+        BoardView.RequestNewBlockSet();
+    }
+
+    private void OnRowFilled(int rowIndex)
+    {
+        BoardView.ClearRow(rowIndex);
     }
 }

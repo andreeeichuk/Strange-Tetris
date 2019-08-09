@@ -51,6 +51,14 @@ public class BoardView : View
         }
     }
 
+    public void ClearRow(int rowIndex)
+    {
+        for (int i = 0; i < elementsOnGrid.GetLength(0); i++)
+        {
+            Destroy(elementsOnGrid[i, rowIndex]);
+        }
+    }
+
     private void SetBlockSpawnPositions()
     {
         blockSpawnPositions = new Vector2[3];
@@ -60,7 +68,7 @@ public class BoardView : View
         blockSpawnPositions[2] = blockSpawnPosition - blockSpawnOffset;
     }
 
-    private void RequestNewBlockSet()
+    public void RequestNewBlockSet()
     {
         newBlockSetRequest.Dispatch(blockSpawnPositions.Length);
     }    
