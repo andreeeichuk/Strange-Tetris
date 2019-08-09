@@ -6,17 +6,12 @@ public class BoardView : View
 {
     public Signal<int> newBlockSetRequest = new Signal<int>();
 
+    [SerializeField] private Vector2 gridOrigin = new Vector2(-6.13f,-3.43f);
+    [SerializeField] private float gridStep = 1.373f;
     [SerializeField] private Vector2 blockSpawnPosition = new Vector2(0f,-7.5f);
-    [SerializeField] private Vector2 blockSpawnOffset = new Vector2(5f, 0f);    
+    [SerializeField] private Vector2 blockSpawnOffset = new Vector2(5f, 0f);
 
-    //private IBlockTypes blockTypes;
-
-    private Vector2[] blockSpawnPositions;
-
-    //public BoardView(IBlockTypes blockTypes)
-    //{
-    //    this.blockTypes = blockTypes;
-    //}
+    private Vector2[] blockSpawnPositions;    
 
     public void Init()
     {
@@ -35,9 +30,8 @@ public class BoardView : View
     
     public void SpawnBlock(int spawnPoint, GameObject block)
     {
-        Instantiate(block, blockSpawnPositions[spawnPoint], Quaternion.identity, this.transform);
-
-        //Instantiate(blockTypes.blocks[blockVariant], blockSpawnPositions[spawnPoint], Quaternion.identity, this.transform);
+        BlockView blockView = Instantiate(block, blockSpawnPositions[spawnPoint], Quaternion.identity, this.transform).GetComponent<BlockView>();
+        blockView.Init();
     }
 
     private void SetBlockSpawnPositions()

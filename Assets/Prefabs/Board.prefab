@@ -44,16 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178d84e009ddf2c45b69085466ec94e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridOrigin: {x: 0, y: 0}
+  gridStep: 0
   blockSpawnPosition: {x: 0, y: -7.5}
   blockSpawnOffset: {x: 5, y: 0}
-  blocks:
-  - {fileID: 1000013774893932, guid: 456e998db30d22d4aa98d3346c62f316, type: 3}
-  - {fileID: 1000010848202762, guid: b040b750a0e108a41842a923ea262696, type: 3}
-  - {fileID: 1000013607061508, guid: ef1a165a0c474c94b9da2052de3535df, type: 3}
-  - {fileID: 1000013836595148, guid: 5669a5943a971f14c9330ce9f7d91a54, type: 3}
-  - {fileID: 1000011639141054, guid: 690f787f534c1d142bfbbbd108ff73aa, type: 3}
-  - {fileID: 1000010735536160, guid: 881ea01fb7d19224d9d60175b7486cfe, type: 3}
-  - {fileID: 1000010743416826, guid: eaddba525b240bc44a105de273d87ffa, type: 3}
 --- !u!1 &1529211070972041566
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BlockView : View
 {
+    [SerializeField] Transform pivot;
     [SerializeField] private float spawnScale = 1f;
     [SerializeField] private float gridScale = 1.38f;
 
@@ -11,6 +12,7 @@ public class BlockView : View
     public void Init()
     {
         spawnPoint = transform.position;
+        transform.position -= pivot.localPosition;
     }
 
     public void SetPosition(Vector2 vector2)
