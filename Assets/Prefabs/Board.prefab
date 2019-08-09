@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178d84e009ddf2c45b69085466ec94e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridOrigin: {x: 0, y: 0}
-  gridStep: 0
+  gridOrigin: {x: -6.13, y: -3.43}
+  gridStep: 1.373
+  spawnBorder: -5
   blockSpawnPosition: {x: 0, y: -7.5}
   blockSpawnOffset: {x: 5, y: 0}
 --- !u!1 &1529211070972041566

@@ -8,6 +8,7 @@ public class BoardView : View
 
     [SerializeField] private Vector2 gridOrigin = new Vector2(-6.13f,-3.43f);
     [SerializeField] private float gridStep = 1.373f;
+    [SerializeField] private float spawnBorder = -5f;
     [SerializeField] private Vector2 blockSpawnPosition = new Vector2(0f,-7.5f);
     [SerializeField] private Vector2 blockSpawnOffset = new Vector2(5f, 0f);
 
@@ -31,7 +32,7 @@ public class BoardView : View
     public void SpawnBlock(int spawnPoint, GameObject block)
     {
         BlockView blockView = Instantiate(block, blockSpawnPositions[spawnPoint], Quaternion.identity, this.transform).GetComponent<BlockView>();
-        blockView.Init();
+        blockView.Init(spawnBorder);
     }
 
     private void SetBlockSpawnPositions()

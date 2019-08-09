@@ -39,9 +39,12 @@ public class TetrisContext : MVCSContext
         injectionBinder.Bind<ILocalDataService>().To<LocalDataService>().ToSingleton();
 
         commandBinder.Bind<StartSignal>().To<StartCommand>().Once();
+        commandBinder.Bind<TryTouchBlockSignal>().To<TryTouchBlockCommand>();
 
         injectionBinder.Bind<NewGameSignal>().ToSingleton();
+        injectionBinder.Bind<BlockTouchedSignal>().ToSingleton();
 
-        mediationBinder.Bind<BoardView>().To<BoardMediator>();        
+        mediationBinder.Bind<BoardView>().To<BoardMediator>();
+        mediationBinder.Bind<MouseControlsView>().To<ControlsMediator>();
     }
 }
