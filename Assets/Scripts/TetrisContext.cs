@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using strange.extensions.dispatcher.eventdispatcher.api;
@@ -33,6 +33,6 @@ public class TetrisContext : MVCSContext
 
     protected override void mapBindings()
     {
-        
+        commandBinder.Bind<StartSignal>().To<StartCommand>().Once();
     }
 }
