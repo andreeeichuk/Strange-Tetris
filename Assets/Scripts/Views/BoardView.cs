@@ -17,6 +17,7 @@ public class BoardView : View
 
     public void Init()
     {
+        Debug.Log("Board Init");
         SetBlockSpawnPositions();
     }    
 

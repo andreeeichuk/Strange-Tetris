@@ -34,5 +34,9 @@ public class TetrisContext : MVCSContext
     protected override void mapBindings()
     {
         commandBinder.Bind<StartSignal>().To<StartCommand>().Once();
+
+        injectionBinder.Bind<NewGameSignal>().ToSingleton();
+
+        mediationBinder.Bind<BoardView>().To<BoardMediator>();
     }
 }
