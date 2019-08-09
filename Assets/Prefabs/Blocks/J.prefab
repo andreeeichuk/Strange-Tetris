@@ -213,6 +213,11 @@ MonoBehaviour:
   pivot: {fileID: 4000011435886762}
   spawnScale: 1
   gridScale: 1.38
+  elements:
+  - {fileID: 1000013612776374}
+  - {fileID: 1000010523252156}
+  - {fileID: 1000011578720606}
+  - {fileID: 1000010145857352}
 --- !u!61 &6192029466171669812
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -386,6 +391,7 @@ MonoBehaviour:
   pivot: {fileID: 4000011435886762}
   spawnScale: 1
   gridScale: 1.38
+  elements: []
 --- !u!1 &1000013612776374
 GameObject:
   m_ObjectHideFlags: 0

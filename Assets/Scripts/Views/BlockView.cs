@@ -71,8 +71,9 @@ public class BlockView : View
 
     public void DestroySelf()
     {
+        Debug.Log("Destroying block");
         Array.Clear(elements, 0, elements.Length);
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     //returns its elements

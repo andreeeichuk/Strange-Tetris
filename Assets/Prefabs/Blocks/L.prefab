@@ -323,6 +323,11 @@ MonoBehaviour:
   pivot: {fileID: 4000013048453682}
   spawnScale: 1
   gridScale: 1.38
+  elements:
+  - {fileID: 1000010802270910}
+  - {fileID: 1000010954221476}
+  - {fileID: 1000011294731202}
+  - {fileID: 1000013671966424}
 --- !u!61 &6438835663394062732
 BoxCollider2D:
   m_ObjectHideFlags: 0

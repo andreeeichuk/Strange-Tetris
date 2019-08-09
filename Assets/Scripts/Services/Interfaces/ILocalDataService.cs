@@ -6,4 +6,5 @@ public interface ILocalDataService
     int GetBlockTypesCount();
     int GetGridWidth();
     int GetGridHeight();
+    int GetSlotsCount();
 }

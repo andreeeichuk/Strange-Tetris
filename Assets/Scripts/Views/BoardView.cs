@@ -6,6 +6,9 @@ public class BoardView : View
 {
     public Signal<int> newBlockSetRequest = new Signal<int>();
 
+    public Vector2 GridOrigin { get { return gridOrigin; } }
+    public float GridStep { get { return gridStep; } }
+
     [SerializeField] private Vector2 gridOrigin = new Vector2(-6.13f,-3.43f);
     [SerializeField] private float gridStep = 1.373f;
     [SerializeField] private float spawnBorder = -5f;
@@ -43,6 +46,7 @@ public class BoardView : View
         for (int i = 0; i < elements.Length; i++)
         {
             elements[i].transform.parent = transform;
+            elements[i].transform.position = gridOrigin + new Vector2(coordinates[i].x * gridStep, coordinates[i].y * gridStep);
             elementsOnGrid[coordinates[i].x, coordinates[i].y] = elements[i];
         }
     }
@@ -59,21 +63,5 @@ public class BoardView : View
     private void RequestNewBlockSet()
     {
         newBlockSetRequest.Dispatch(blockSpawnPositions.Length);
-    }
-
-    // returns true if all vectors are located inside grid
-    public Coordinate[] ConvertVectorsToCoordinates(Vector2[] vectors)
-    {
-        Coordinate[] coordinates = new Coordinate[vectors.Length];
-
-        for(int i=0;i<vectors.Length;i++)
-        {
-            Vector2 diff = vectors[i] - gridOrigin;
-            int x = (int)(diff.x / gridStep);
-            int y = (int)(diff.y / gridStep);
-            coordinates[i] = new Coordinate(x, y);
-        }
-
-        return coordinates;
-    }
+    }    
 }

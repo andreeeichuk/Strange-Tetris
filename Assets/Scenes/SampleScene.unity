@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockTypes: {fileID: 11400000, guid: 8cb116173c6c6564faf089b74ab79763, type: 2}
+  gridWidth: 10
+  gridHeight: 10
+  slotsCount: 3
 --- !u!1 &163555770
 GameObject:
   m_ObjectHideFlags: 0

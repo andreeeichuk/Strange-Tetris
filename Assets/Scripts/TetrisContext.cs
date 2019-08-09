@@ -35,16 +35,19 @@ public class TetrisContext : MVCSContext
     protected override void mapBindings()
     {
         injectionBinder.Bind<IGridModel>().To<GridModel>().ToSingleton();
+        injectionBinder.Bind<IGameStateModel>().To<GameStateModel>().ToSingleton();
         injectionBinder.Bind<IBlockSetGenerator>().To<BlockSetGenerator>().ToSingleton();
         injectionBinder.Bind<ILocalDataService>().To<LocalDataService>().ToSingleton();
 
         commandBinder.Bind<StartSignal>().To<StartCommand>().Once();
+        commandBinder.Bind<NewGameSignal>().To<NewGameCommand>();
         commandBinder.Bind<TryTouchBlockSignal>().To<TryTouchBlockCommand>();
         commandBinder.Bind<TryPlaceBlockSignal>().To<TryPlaceBlockCommand>();
         commandBinder.Bind<BlockPlacedSignal>().To<BlockPlacedCommand>();
 
-        injectionBinder.Bind<NewGameSignal>().ToSingleton();
+        injectionBinder.Bind<NewGameReadySignal>().ToSingleton();
         injectionBinder.Bind<BlockTouchedSignal>().ToSingleton();
+        injectionBinder.Bind<ElementsPlacedSignal>().ToSingleton();
 
         mediationBinder.Bind<BoardView>().To<BoardMediator>();
         mediationBinder.Bind<MouseControlsView>().To<ControlsMediator>();

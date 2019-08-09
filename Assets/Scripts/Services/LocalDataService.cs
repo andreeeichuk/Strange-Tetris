@@ -28,4 +28,9 @@ public class LocalDataService : ILocalDataService
     {
         return data.gridHeight;
     }
+
+    public int GetSlotsCount()
+    {
+        return data.slotsCount;
+    }
 }

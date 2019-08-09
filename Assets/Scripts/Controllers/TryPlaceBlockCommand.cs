@@ -4,10 +4,7 @@ using UnityEngine;
 public class TryPlaceBlockCommand : Command
 {
     [Inject]
-    public BlockView Block { get; set; }
-
-    [Inject]
-    public BoardView BoardView { get; set; }
+    public BlockView Block { get; set; }    
 
     [Inject]
     public IGridModel GridModel { get; set; }
@@ -17,6 +14,8 @@ public class TryPlaceBlockCommand : Command
 
     public override void Execute()
     {
+        Debug.Log("Try Placing Block");
+
         GameObject[] elements = Block.Elements;
 
         Vector2[] elementsPositions = new Vector2[elements.Length];
@@ -26,7 +25,12 @@ public class TryPlaceBlockCommand : Command
             elementsPositions[i] = elements[i].transform.position;
         }
 
-        Coordinate[] coordinates = BoardView.ConvertVectorsToCoordinates(elementsPositions);
+        Coordinate[] coordinates = GridModel.ConvertVectorsToCoordinates(elementsPositions);
+
+        foreach (var item in coordinates)
+        {
+            Debug.Log($"{item.x}; {item.y}");
+        }
 
         if(GridModel.TryPlaceBlock(coordinates))
         {
