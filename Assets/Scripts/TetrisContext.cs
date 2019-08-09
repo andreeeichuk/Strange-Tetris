@@ -40,6 +40,8 @@ public class TetrisContext : MVCSContext
 
         commandBinder.Bind<StartSignal>().To<StartCommand>().Once();
         commandBinder.Bind<TryTouchBlockSignal>().To<TryTouchBlockCommand>();
+        commandBinder.Bind<TryPlaceBlockSignal>().To<TryPlaceBlockCommand>();
+        commandBinder.Bind<BlockPlacedSignal>().To<BlockPlacedCommand>();
 
         injectionBinder.Bind<NewGameSignal>().ToSingleton();
         injectionBinder.Bind<BlockTouchedSignal>().ToSingleton();

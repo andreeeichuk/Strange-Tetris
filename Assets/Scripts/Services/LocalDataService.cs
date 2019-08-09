@@ -18,4 +18,14 @@ public class LocalDataService : ILocalDataService
     {
         return data.blockTypes.blocks.Length;
     }
+
+    public int GetGridWidth()
+    {
+        return data.gridWidth;
+    }
+
+    public int GetGridHeight()
+    {
+        return data.gridHeight;
+    }
 }

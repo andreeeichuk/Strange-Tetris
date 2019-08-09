@@ -28,7 +28,10 @@ public class BoardMediator : Mediator
 
     private void OnNewGame()
     {
-        BoardView.Init();
+        int gridWidth = LocalDataService.GetGridWidth();
+        int gridHeight = LocalDataService.GetGridHeight();
+
+        BoardView.Init(gridWidth, gridHeight);
     }
 
     private void OnNewBlockSetRequest(int blocksNumber)

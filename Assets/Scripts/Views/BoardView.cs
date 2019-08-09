@@ -14,9 +14,12 @@ public class BoardView : View
 
     private Vector2[] blockSpawnPositions;
 
-    public void Init()
+    private GameObject[,] elementsOnGrid;
+
+    public void Init(int gridWidth, int gridHeight)
     {
         Debug.Log("Board Init");
+        elementsOnGrid = new GameObject[gridWidth, gridHeight];
         SetBlockSpawnPositions();
         RequestNewBlockSet();
     }    
@@ -35,6 +38,15 @@ public class BoardView : View
         blockView.Init(spawnBorder);
     }
 
+    public void SetPlacedEelements(GameObject[] elements, Coordinate[] coordinates)
+    {
+        for (int i = 0; i < elements.Length; i++)
+        {
+            elements[i].transform.parent = transform;
+            elementsOnGrid[coordinates[i].x, coordinates[i].y] = elements[i];
+        }
+    }
+
     private void SetBlockSpawnPositions()
     {
         blockSpawnPositions = new Vector2[3];
@@ -47,5 +59,21 @@ public class BoardView : View
     private void RequestNewBlockSet()
     {
         newBlockSetRequest.Dispatch(blockSpawnPositions.Length);
+    }
+
+    // returns true if all vectors are located inside grid
+    public Coordinate[] ConvertVectorsToCoordinates(Vector2[] vectors)
+    {
+        Coordinate[] coordinates = new Coordinate[vectors.Length];
+
+        for(int i=0;i<vectors.Length;i++)
+        {
+            Vector2 diff = vectors[i] - gridOrigin;
+            int x = (int)(diff.x / gridStep);
+            int y = (int)(diff.y / gridStep);
+            coordinates[i] = new Coordinate(x, y);
+        }
+
+        return coordinates;
     }
 }

@@ -5,6 +5,8 @@ using strange.extensions.mediation.impl;
 public class Data : View
 {
     public BlockTypes blockTypes;
+    public int gridWidth;
+    public int gridHeight;
 
     public GameObject GetBlockType(int index)
     {

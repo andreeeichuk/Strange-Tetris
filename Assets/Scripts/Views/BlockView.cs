@@ -1,11 +1,18 @@
 ﻿using strange.extensions.mediation.impl;
 using UnityEngine;
+using System;
 
 public class BlockView : View
 {
+    [Inject]
+    public TryPlaceBlockSignal TryPlaceBlockSignal { get; set; }
+
+    public GameObject[] Elements { get { return elements; } }
+
     [SerializeField] Transform pivot;
     [SerializeField] private float spawnScale = 1f;
     [SerializeField] private float gridScale = 1.38f;
+    [SerializeField] GameObject[] elements;
 
     private Vector2 spawnPoint;
     private float spawnBorder;
@@ -37,7 +44,7 @@ public class BlockView : View
         }
         else
         {
-            // disassemble if can be placed;
+            TryPlaceBlockSignal.Dispatch(this);            
         }
     }
 
@@ -61,4 +68,13 @@ public class BlockView : View
     {
         transform.position = spawnPoint;
     }
+
+    public void DestroySelf()
+    {
+        Array.Clear(elements, 0, elements.Length);
+        Destroy(this);
+    }
+
+    //returns its elements
+    
 }
