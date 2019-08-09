@@ -7,7 +7,8 @@ using strange.extensions.command.api;
 using strange.extensions.command.impl;
 
 public class TetrisContext : MVCSContext
-{
+{    
+
     public TetrisContext(MonoBehaviour view) : base(view)
     {
     }
@@ -33,10 +34,14 @@ public class TetrisContext : MVCSContext
 
     protected override void mapBindings()
     {
+        injectionBinder.Bind<IGridModel>().To<GridModel>().ToSingleton();
+        injectionBinder.Bind<IBlockSetGenerator>().To<BlockSetGenerator>().ToSingleton();
+        injectionBinder.Bind<ILocalDataService>().To<LocalDataService>().ToSingleton();
+
         commandBinder.Bind<StartSignal>().To<StartCommand>().Once();
 
         injectionBinder.Bind<NewGameSignal>().ToSingleton();
 
-        mediationBinder.Bind<BoardView>().To<BoardMediator>();
+        mediationBinder.Bind<BoardView>().To<BoardMediator>();        
     }
 }

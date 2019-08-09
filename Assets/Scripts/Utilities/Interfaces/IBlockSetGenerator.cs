@@ -1,4 +1,6 @@
-﻿public interface IBlockSetGenerator
+﻿using UnityEngine;
+
+public interface IBlockSetGenerator
 {
-    void GenerateBlockSet(int blocksNumber);
+    GameObject[] GenerateBlockSet(int blocksNumber);
 }

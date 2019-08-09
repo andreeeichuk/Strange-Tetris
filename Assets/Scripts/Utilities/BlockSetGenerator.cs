@@ -1,20 +1,25 @@
-﻿public class BlockSetGenerator : IBlockSetGenerator
-{
-    private IBlockTypes blockTypes;
+﻿using UnityEngine;
 
-    public BlockSetGenerator(IBlockTypes blockTypes)
+public class BlockSetGenerator : IBlockSetGenerator
+{
+    private ILocalDataService localDataService;
+
+    public BlockSetGenerator(ILocalDataService localDataService)
     {
-        this.blockTypes = blockTypes;
+        this.localDataService = localDataService;
     }
 
     // generates block set by its type's index
-    public void GenerateBlockSet(int blocksNumber)
+    public GameObject[] GenerateBlockSet(int blocksNumber)
     {
-        int[] blockSet = new int[blocksNumber];
+        GameObject[] blockSet = new GameObject[blocksNumber];
 
         for (int i = 0; i < blockSet.Length; i++)
         {
-            blockSet[i] = UnityEngine.Random.Range(0, blockTypes.blocks.Length);
+            int random = Random.Range(0, localDataService.GetBlockTypesCount());
+            blockSet[i] = localDataService.GetBlockByIndex(random);
         }
+
+        return blockSet;
     }
 }

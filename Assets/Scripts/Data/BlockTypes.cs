@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "BlockTypes", menuName = "Data/BlockTypes")]
-public class BlockTypes : ScriptableObject, IBlockTypes
+public class BlockTypes : ScriptableObject
 {
     public GameObject[] blocks { get { return _blocks; } }
 
