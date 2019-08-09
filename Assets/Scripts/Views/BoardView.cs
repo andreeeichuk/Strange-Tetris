@@ -12,7 +12,7 @@ public class BoardView : View
     [SerializeField] private Vector2 blockSpawnPosition = new Vector2(0f,-7.5f);
     [SerializeField] private Vector2 blockSpawnOffset = new Vector2(5f, 0f);
 
-    private Vector2[] blockSpawnPositions;    
+    private Vector2[] blockSpawnPositions;
 
     public void Init()
     {
