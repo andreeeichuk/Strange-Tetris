@@ -40,9 +40,7 @@ public class BlockView : View
     {
         if(transform.position.y<spawnBorder)
         {
-            isTaken = false;
             ReturnToSpawnPoint();
-            SetSpawnScale();
         }
         else
         {
@@ -68,6 +66,8 @@ public class BlockView : View
 
     public void ReturnToSpawnPoint()
     {
+        isTaken = false;
+        SetSpawnScale();
         transform.position = spawnPoint;
     }
 

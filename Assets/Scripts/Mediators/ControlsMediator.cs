@@ -18,6 +18,7 @@ public class ControlsMediator : Mediator
     public BlockTouchedSignal BlockTouchedSignal { get; set; }
 
     private BlockView selectedBlock;
+    private BlockView movedBlock;
     private Vector2 startTouchPosition;
     private Vector2 startBlockPosition;
 
@@ -63,6 +64,11 @@ public class ControlsMediator : Mediator
     private void OnBlockTouched(BlockView block)
     {
         selectedBlock = block;
+        if (movedBlock!=null&&movedBlock!=selectedBlock)
+        {
+            movedBlock.ReturnToSpawnPoint();
+        }
+        movedBlock = block;
         startBlockPosition = block.transform.position;
         selectedBlock.Take();
     }
