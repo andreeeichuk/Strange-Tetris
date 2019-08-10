@@ -22,7 +22,7 @@ public class NewGameCommand : Command
         int slotsCount = LocalDataService.GetSlotsCount();
 
         GridModel.Create(gridWidth, gridHeight);
-        GameStateModel.CreateFreeSlots(slotsCount);
+        GameStateModel.CreateSlots(slotsCount);
 
         NewGameReadySignal.Dispatch();
     }

@@ -9,4 +9,5 @@ public interface IGridModel
     bool TryPlaceBlock(Coordinate[] coordinates);
     void PlaceBlock(Coordinate[] coordinates);
     Coordinate[] ConvertVectorsToCoordinates(Vector2[] vectors);
+    bool CheckMovesForBlock(Coordinate[] coordinates);
 }

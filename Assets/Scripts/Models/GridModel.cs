@@ -97,4 +97,52 @@ public class GridModel : IGridModel
 
         return coordinates;
     }
+
+    public bool CheckMovesForBlock(Coordinate[] coordinates)
+    {
+        int blockWidth = 0;
+        int blockHeight = 0;
+
+        for (int i = 0; i < coordinates.Length; i++)
+        {
+            if(coordinates[i].x>blockWidth)
+            {
+                blockWidth = coordinates[i].x;
+            }
+
+            if(coordinates[i].y>blockHeight)
+            {
+                blockHeight = coordinates[i].y;
+            }
+        }
+
+        for (int i = 0; i < height - blockHeight; i++)
+        {
+            for (int j = 0; j < width - blockWidth; j++)
+            {
+                if (CheckSpot(coordinates, j, i))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool CheckSpot(Coordinate[] coordinates, int offsetX, int offsetY)
+    {        
+        for (int k = 0; k < coordinates.Length; k++)
+        {
+            if (cells[coordinates[k].x + offsetX, coordinates[k].y + offsetY])
+            {
+                return false;
+            }
+        }
+
+        
+        Debug.Log($"First Move: {coordinates[0].x + offsetX}, {coordinates[0].y + offsetY}");
+        
+
+        return true;
+        
+    }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoardView : View
 {
     public Signal<int> newBlockSetRequest = new Signal<int>();
+    public Signal<BlockView[]> slotsFilled = new Signal<BlockView[]>();
 
     public Vector2 GridOrigin { get { return gridOrigin; } }
     public float GridStep { get { return gridStep; } }
@@ -18,6 +19,7 @@ public class BoardView : View
     private Vector2[] blockSpawnPositions;
 
     private GameObject[,] elementsOnGrid;
+    private GameObject[] blocksToPlace;
 
     public void Init(int gridWidth, int gridHeight)
     {
@@ -29,16 +31,23 @@ public class BoardView : View
 
     public void SpawnNewBlockSet(GameObject[] blocks)
     {
+        BlockView[] blockViews = new BlockView[blocks.Length];
+
         for (int i = 0; i < blockSpawnPositions.Length; i++)
         {
-            SpawnBlock(i, blocks[i]);
+            GameObject spawnedBlock = SpawnBlock(i, blocks[i]);
+            BlockView blockView = spawnedBlock.GetComponent<BlockView>();
+            blockView.Init(spawnBorder, i);
+            blockViews[i] = blockView;
         }
+
+        slotsFilled.Dispatch(blockViews);
     }
-    
-    public void SpawnBlock(int spawnPoint, GameObject block)
+
+    public GameObject SpawnBlock(int spawnPoint, GameObject block)
     {
-        BlockView blockView = Instantiate(block, blockSpawnPositions[spawnPoint], Quaternion.identity, this.transform).GetComponent<BlockView>();
-        blockView.Init(spawnBorder);
+        GameObject b = Instantiate(block, blockSpawnPositions[spawnPoint], Quaternion.identity, this.transform);
+        return b;
     }
 
     public void SetPlacedEelements(GameObject[] elements, Coordinate[] coordinates)
@@ -47,6 +56,7 @@ public class BoardView : View
         {
             elements[i].transform.parent = transform;
             elements[i].transform.position = gridOrigin + new Vector2(coordinates[i].x * gridStep, coordinates[i].y * gridStep);
+            elements[i].GetComponent<SpriteRenderer>().sortingOrder = 9;
             elementsOnGrid[coordinates[i].x, coordinates[i].y] = elements[i];
         }
     }

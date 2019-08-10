@@ -27,6 +27,9 @@ public class BoardMediator : Mediator
     [Inject]
     public IGridModel GridModel { get; set; } // temporary solution
 
+    [Inject]
+    public IGameStateModel GameStateModel { get; set; }
+
     public override void OnRegister()
     {
         NewGameReadySignal.AddListener(OnNewGameReady);
@@ -34,6 +37,7 @@ public class BoardMediator : Mediator
         AllPlaced.AddListener(OnAllPlaced);
         RowFilled.AddListener(OnRowFilled);
         BoardView.newBlockSetRequest.AddListener(OnNewBlockSetRequest);
+        BoardView.slotsFilled.AddListener(OnSlotsFilled);
     }
 
     public override void OnRemove()
@@ -43,8 +47,9 @@ public class BoardMediator : Mediator
         AllPlaced.RemoveListener(OnAllPlaced);
         RowFilled.RemoveListener(OnRowFilled);
         BoardView.newBlockSetRequest.RemoveListener(OnNewBlockSetRequest);
+        BoardView.slotsFilled.RemoveListener(OnSlotsFilled);
     }
-    
+
     private void OnNewBlockSetRequest(int blocksNumber)
     {
         GameObject[] blocks = BlockSetGenerator.GenerateBlockSet(blocksNumber);        
@@ -76,5 +81,17 @@ public class BoardMediator : Mediator
     private void OnRowFilled(int rowIndex)
     {
         BoardView.ClearRow(rowIndex);
+    }
+    
+    private void OnSlotsFilled(BlockView[] blockViews)
+    {
+        Coordinate[][] c = new Coordinate[blockViews.Length][];
+
+        for (int i = 0; i < blockViews.Length; i++)
+        {
+            c[i] = blockViews[i].GetElementsLocalCoordinates(); 
+        }
+
+        GameStateModel.FillSlots(c);
     }
 }

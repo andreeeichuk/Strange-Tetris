@@ -8,6 +8,7 @@ public class BlockView : View
     public TryPlaceBlockSignal TryPlaceBlockSignal { get; set; }
 
     public GameObject[] Elements { get { return elements; } }
+    public int SlotIndex { get; private set; }
 
     [SerializeField] Transform pivot;
     [SerializeField] private float spawnScale = 1f;
@@ -18,11 +19,12 @@ public class BlockView : View
     private float spawnBorder;
     private bool isTaken;
 
-    public void Init(float spawnBorder)
+    public void Init(float spawnBorder, int slot)
     {
         spawnPoint = transform.position - pivot.localPosition;
         transform.position -= pivot.localPosition;
         this.spawnBorder = spawnBorder;
+        SlotIndex = slot;
     }
 
     public void Take()
@@ -71,9 +73,21 @@ public class BlockView : View
 
     public void DestroySelf()
     {
-        Debug.Log("Destroying block");
         Array.Clear(elements, 0, elements.Length);
         Destroy(gameObject);
+    }
+
+    public Coordinate[] GetElementsLocalCoordinates()
+    {
+        Coordinate[] coordinates = new Coordinate[elements.Length];
+
+        for (int i = 0; i < elements.Length; i++)
+        {
+            coordinates[i] = new Coordinate((int)elements[i].transform.localPosition.x,
+                (int)elements[i].transform.localPosition.y);
+        }
+
+        return coordinates;
     }
 
     //returns its elements

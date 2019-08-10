@@ -1,5 +1,6 @@
 ﻿public interface IGameStateModel
 {
-    void FreeOneSlot();
-    void CreateFreeSlots(int count);
+    void CreateSlots(int count);
+    void FillSlots(Coordinate[][] coordinates);
+    void FreeSlot(int index);
 }

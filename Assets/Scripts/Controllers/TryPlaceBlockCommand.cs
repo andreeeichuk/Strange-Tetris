@@ -12,10 +12,14 @@ public class TryPlaceBlockCommand : Command
     [Inject]
     public BlockPlacedSignal BlockPlacedSignal { get; set; }
 
+    [Inject]
+    public ElementsPlacedSignal ElementsPlacedSignal { get; set; }
+
+    [Inject]
+    public IGameStateModel GameStateModel { get; set; }
+
     public override void Execute()
     {
-        Debug.Log("Try Placing Block");
-
         GameObject[] elements = Block.Elements;
 
         Vector2[] elementsPositions = new Vector2[elements.Length];
@@ -25,17 +29,14 @@ public class TryPlaceBlockCommand : Command
             elementsPositions[i] = elements[i].transform.position;
         }
 
-        Coordinate[] coordinates = GridModel.ConvertVectorsToCoordinates(elementsPositions);
-
-        foreach (var item in coordinates)
-        {
-            Debug.Log($"{item.x}; {item.y}");
-        }
+        Coordinate[] coordinates = GridModel.ConvertVectorsToCoordinates(elementsPositions);        
 
         if(GridModel.TryPlaceBlock(coordinates))
         {
-            BlockPlacedSignal.Dispatch(Block, coordinates);
+            ElementsPlacedSignal.Dispatch(Block.Elements, coordinates);
             GridModel.PlaceBlock(coordinates);
+            GameStateModel.FreeSlot(Block.SlotIndex);
+            Block.DestroySelf();
         }
     }
 }
