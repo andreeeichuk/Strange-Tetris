@@ -5,10 +5,10 @@ using UnityEngine;
 public class StartCommand : Command
 {
     [Inject]
-    public NewGameSignal newGameSignal { get; set; }
+    public GameSetupSignal GameSetup { get; set; }
 
     [Inject(ContextKeys.CONTEXT_VIEW)]
-    public GameObject contextView { get; set; }
+    public GameObject ContextView { get; set; }
 
     public override void Execute()
     {
@@ -16,15 +16,15 @@ public class StartCommand : Command
             GameObject mouseControls = new GameObject();
             mouseControls.name = "Mouse Controls";
             mouseControls.AddComponent<MouseControlsView>();
-            mouseControls.transform.parent = contextView.transform;
+            mouseControls.transform.parent = ContextView.transform;
 
         #elif UNITY_ANDROID
             GameObject touchControls = new GameObject();
             touchControls.name = "Touch Controls";
             touchControls.AddComponent<TouchControlsView>();
-            touchControls.transform.parent = contextView.transform;
+            touchControls.transform.parent = ContextView.transform;
         #endif
 
-        newGameSignal.Dispatch();
+        GameSetup.Dispatch();
     }
 }

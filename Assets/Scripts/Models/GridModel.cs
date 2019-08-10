@@ -142,10 +142,8 @@ public class GridModel : IGridModel
                 return false;
             }
         }
-
         
-        Debug.Log($"First Move: {coordinates[0].x + offsetX}, {coordinates[0].y + offsetY}");
-        
+        Debug.Log($"First Available Move (Place Block first element at): {coordinates[0].x + offsetX + 1}, {coordinates[0].y + offsetY + 1}");        
 
         return true;
         

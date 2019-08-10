@@ -88,8 +88,5 @@ public class BlockView : View
         }
 
         return coordinates;
-    }
-
-    //returns its elements
-    
+    }    
 }

@@ -1,7 +1,7 @@
 ﻿using strange.extensions.command.impl;
 using UnityEngine;
 
-public class NewGameCommand : Command
+public class GameSetupCommand : Command
 {
     [Inject]
     public ILocalDataService LocalDataService { get; set; }
@@ -13,7 +13,7 @@ public class NewGameCommand : Command
     public IGameStateModel GameStateModel { get; set; }
 
     [Inject]
-    public NewGameReadySignal NewGameReadySignal { get; set; }
+    public NewGameSignal NewGameSignal { get; set; }
 
     public override void Execute()
     {
@@ -24,6 +24,6 @@ public class NewGameCommand : Command
         GridModel.Create(gridWidth, gridHeight);
         GameStateModel.CreateSlots(slotsCount);
 
-        NewGameReadySignal.Dispatch();
+        NewGameSignal.Dispatch();
     }
 }

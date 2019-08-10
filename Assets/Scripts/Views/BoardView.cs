@@ -108,9 +108,9 @@ public class BoardView : View
     {
         blockSpawnPositions = new Vector2[3];
 
-        blockSpawnPositions[0] = blockSpawnPosition;
-        blockSpawnPositions[1] = blockSpawnPosition + blockSpawnOffset;
-        blockSpawnPositions[2] = blockSpawnPosition - blockSpawnOffset;
+        blockSpawnPositions[0] = blockSpawnPosition - blockSpawnOffset;
+        blockSpawnPositions[1] = blockSpawnPosition;
+        blockSpawnPositions[2] = blockSpawnPosition + blockSpawnOffset;        
     }
 
     public void RequestNewBlockSet()

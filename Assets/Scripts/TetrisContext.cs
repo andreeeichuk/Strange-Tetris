@@ -1,8 +1,6 @@
 using UnityEngine;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.dispatcher.eventdispatcher.impl;
 using strange.extensions.command.api;
 using strange.extensions.command.impl;
 
@@ -40,13 +38,13 @@ public class TetrisContext : MVCSContext
         injectionBinder.Bind<ILocalDataService>().To<LocalDataService>().ToSingleton();
 
         commandBinder.Bind<StartSignal>().To<StartCommand>().Once();
-        commandBinder.Bind<NewGameSignal>().To<NewGameCommand>();
+        commandBinder.Bind<GameSetupSignal>().To<GameSetupCommand>();
         commandBinder.Bind<TryTouchBlockSignal>().To<TryTouchBlockCommand>();
         commandBinder.Bind<TryPlaceBlockSignal>().To<TryPlaceBlockCommand>();
         commandBinder.Bind<CheckMovesSignal>().To<CheckMovesCommand>();
         commandBinder.Bind<RestartGameSignal>().To<RestartGameCommand>();
 
-        injectionBinder.Bind<NewGameReadySignal>().ToSingleton();
+        injectionBinder.Bind<NewGameSignal>().ToSingleton();
         injectionBinder.Bind<BlockTouchedSignal>().ToSingleton();
         injectionBinder.Bind<ElementsPlacedSignal>().ToSingleton();
         injectionBinder.Bind<AllPlacedSignal>().ToSingleton();

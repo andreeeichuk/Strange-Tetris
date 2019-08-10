@@ -19,6 +19,15 @@ public class GameStateModel : IGameStateModel
         freeSlotsCount = count;
     }
 
+    public void ResetSlots()
+    {
+        for (int i = 0; i < BlocksInSlots.Length; i++)
+        {
+            BlocksInSlots[i] = null;
+        }
+        freeSlotsCount = BlocksInSlots.Length;
+    }
+
     public void FillSlots(Coordinate[][] coordinates)
     {
         BlocksInSlots = coordinates;

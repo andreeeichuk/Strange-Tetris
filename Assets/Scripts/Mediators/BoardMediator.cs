@@ -13,10 +13,10 @@ public class BoardMediator : Mediator
     public IBlockSetGenerator BlockSetGenerator { get; set; }
 
     [Inject]
-    public NewGameSignal NewGame { get; set; }
+    public GameSetupSignal GameSetup { get; set; }
 
     [Inject]
-    public NewGameReadySignal NewGameReadySignal { get; set; }
+    public NewGameSignal NewGameSignal { get; set; }
 
     [Inject]
     public ElementsPlacedSignal ElementsPlacedSignal { get; set; }
@@ -31,15 +31,15 @@ public class BoardMediator : Mediator
     public ResetViewsSignal ResetViews { get; set; }
 
     [Inject]
-    public IGridModel GridModel { get; set; } // temporary solution
+    public IGridModel GridModel { get; set; }
 
     [Inject]
     public IGameStateModel GameStateModel { get; set; }
 
     public override void OnRegister()
     {
-        NewGame.AddListener(OnNewGame);
-        NewGameReadySignal.AddListener(OnNewGameReady);
+        GameSetup.AddListener(OnGameSetup);
+        NewGameSignal.AddListener(OnNewGame);
         ElementsPlacedSignal.AddListener(OnElementsPlaced);
         AllPlaced.AddListener(OnAllPlaced);
         RowFilled.AddListener(OnRowFilled);
@@ -50,8 +50,8 @@ public class BoardMediator : Mediator
 
     public override void OnRemove()
     {
-        NewGame.RemoveListener(OnNewGame);
-        NewGameReadySignal.RemoveListener(OnNewGameReady);
+        GameSetup.RemoveListener(OnGameSetup);
+        NewGameSignal.RemoveListener(OnNewGame);
         ElementsPlacedSignal.RemoveListener(OnElementsPlaced);
         AllPlaced.RemoveListener(OnAllPlaced);
         RowFilled.RemoveListener(OnRowFilled);
@@ -67,7 +67,7 @@ public class BoardMediator : Mediator
         BoardView.SpawnNewBlockSet(blocks);
     }
 
-    private void OnNewGame()
+    private void OnGameSetup()
     {
         int gridWidth = LocalDataService.GetGridWidth();
         int gridHeight = LocalDataService.GetGridHeight();
@@ -76,7 +76,7 @@ public class BoardMediator : Mediator
         GridModel.SetOriginAndStep(BoardView.GridOrigin, BoardView.GridStep);
     }
 
-    private void OnNewGameReady()
+    private void OnNewGame()
     {
         BoardView.NewGame();
     }
