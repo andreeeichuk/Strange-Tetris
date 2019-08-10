@@ -3,6 +3,7 @@
 public interface IGridModel
 {
     void Create(int x, int y);
+    void ResetCellsAndRows();
     void SetOriginAndStep(Vector2 origin, float step);
     bool IsCellFilled(int x, int y);
     void SetCell(int x, int y, bool isFilled);

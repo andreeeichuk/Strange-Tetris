@@ -44,14 +44,18 @@ public class TetrisContext : MVCSContext
         commandBinder.Bind<TryTouchBlockSignal>().To<TryTouchBlockCommand>();
         commandBinder.Bind<TryPlaceBlockSignal>().To<TryPlaceBlockCommand>();
         commandBinder.Bind<CheckMovesSignal>().To<CheckMovesCommand>();
+        commandBinder.Bind<RestartGameSignal>().To<RestartGameCommand>();
 
         injectionBinder.Bind<NewGameReadySignal>().ToSingleton();
         injectionBinder.Bind<BlockTouchedSignal>().ToSingleton();
         injectionBinder.Bind<ElementsPlacedSignal>().ToSingleton();
         injectionBinder.Bind<AllPlacedSignal>().ToSingleton();
         injectionBinder.Bind<RowFilledSignal>().ToSingleton();
+        injectionBinder.Bind<NoMovesSignal>().ToSingleton();
+        injectionBinder.Bind<ResetViewsSignal>().ToSingleton();
 
         mediationBinder.Bind<BoardView>().To<BoardMediator>();
+        mediationBinder.Bind<UIView>().To<UIMediator>();
         mediationBinder.Bind<MouseControlsView>().To<ControlsMediator>();
     }
 }

@@ -13,6 +13,9 @@ public class BoardMediator : Mediator
     public IBlockSetGenerator BlockSetGenerator { get; set; }
 
     [Inject]
+    public NewGameSignal NewGame { get; set; }
+
+    [Inject]
     public NewGameReadySignal NewGameReadySignal { get; set; }
 
     [Inject]
@@ -25,6 +28,9 @@ public class BoardMediator : Mediator
     public AllPlacedSignal AllPlaced { get; set; }
 
     [Inject]
+    public ResetViewsSignal ResetViews { get; set; }
+
+    [Inject]
     public IGridModel GridModel { get; set; } // temporary solution
 
     [Inject]
@@ -32,22 +38,26 @@ public class BoardMediator : Mediator
 
     public override void OnRegister()
     {
+        NewGame.AddListener(OnNewGame);
         NewGameReadySignal.AddListener(OnNewGameReady);
         ElementsPlacedSignal.AddListener(OnElementsPlaced);
         AllPlaced.AddListener(OnAllPlaced);
         RowFilled.AddListener(OnRowFilled);
         BoardView.newBlockSetRequest.AddListener(OnNewBlockSetRequest);
         BoardView.slotsFilled.AddListener(OnSlotsFilled);
+        ResetViews.AddListener(OnResetViews);
     }
 
     public override void OnRemove()
     {
+        NewGame.RemoveListener(OnNewGame);
         NewGameReadySignal.RemoveListener(OnNewGameReady);
         ElementsPlacedSignal.RemoveListener(OnElementsPlaced);
         AllPlaced.RemoveListener(OnAllPlaced);
         RowFilled.RemoveListener(OnRowFilled);
         BoardView.newBlockSetRequest.RemoveListener(OnNewBlockSetRequest);
         BoardView.slotsFilled.RemoveListener(OnSlotsFilled);
+        ResetViews.RemoveListener(OnResetViews);
     }
 
     private void OnNewBlockSetRequest(int blocksNumber)
@@ -57,20 +67,23 @@ public class BoardMediator : Mediator
         BoardView.SpawnNewBlockSet(blocks);
     }
 
-    private void OnNewGameReady()
+    private void OnNewGame()
     {
         int gridWidth = LocalDataService.GetGridWidth();
         int gridHeight = LocalDataService.GetGridHeight();
 
-        BoardView.Init(gridWidth,gridHeight);
-
-        // this should be set only once
+        BoardView.Init(gridWidth, gridHeight);
         GridModel.SetOriginAndStep(BoardView.GridOrigin, BoardView.GridStep);
     }
 
-    private void OnElementsPlaced(GameObject[] elements, Coordinate[] coordinates)
+    private void OnNewGameReady()
     {
-        BoardView.SetPlacedEelements(elements, coordinates);
+        BoardView.NewGame();
+    }
+
+    private void OnElementsPlaced(BlockView block, Coordinate[] coordinates)
+    {
+        BoardView.SetPlacedEelements(block, coordinates);
     }
 
     private void OnAllPlaced()
@@ -93,5 +106,10 @@ public class BoardMediator : Mediator
         }
 
         GameStateModel.FillSlots(c);
+    }
+
+    private void OnResetViews()
+    {
+        BoardView.ResetView();
     }
 }

@@ -7,10 +7,7 @@ public class TryPlaceBlockCommand : Command
     public BlockView Block { get; set; }    
 
     [Inject]
-    public IGridModel GridModel { get; set; }
-
-    [Inject]
-    public BlockPlacedSignal BlockPlacedSignal { get; set; }
+    public IGridModel GridModel { get; set; }    
 
     [Inject]
     public ElementsPlacedSignal ElementsPlacedSignal { get; set; }
@@ -33,7 +30,7 @@ public class TryPlaceBlockCommand : Command
 
         if(GridModel.TryPlaceBlock(coordinates))
         {
-            ElementsPlacedSignal.Dispatch(Block.Elements, coordinates);
+            ElementsPlacedSignal.Dispatch(Block, coordinates);
             GridModel.PlaceBlock(coordinates);
             GameStateModel.FreeSlot(Block.SlotIndex);
             Block.DestroySelf();

@@ -10,6 +10,9 @@ public class CheckMovesCommand : Command
     [Inject]
     public IGridModel GridModel { get; set; }
 
+    [Inject]
+    public NoMovesSignal NoMoves { get; set; }
+
     public override void Execute()
     {
         bool movesArePossible = false;
@@ -26,11 +29,8 @@ public class CheckMovesCommand : Command
 
         if(!movesArePossible)
         {
+            NoMoves.Dispatch();
             Debug.Log("No Moves!");
-        }
-        else
-        {
-            Debug.Log("Have Moves!");
-        }
+        }        
     }
 }

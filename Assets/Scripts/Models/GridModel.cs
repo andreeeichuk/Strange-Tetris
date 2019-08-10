@@ -16,6 +16,11 @@ public class GridModel : IGridModel
     {
         this.width = width;
         this.height = height;
+        ResetCellsAndRows();
+    }
+
+    public void ResetCellsAndRows()
+    {
         cells = new bool[width, height];
         filledInRow = new int[height];
     }

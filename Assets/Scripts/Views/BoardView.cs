@@ -1,6 +1,7 @@
 ﻿using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BoardView : View
 {
@@ -19,15 +20,44 @@ public class BoardView : View
     private Vector2[] blockSpawnPositions;
 
     private GameObject[,] elementsOnGrid;
-    private GameObject[] blocksToPlace;
+    private List<GameObject> availableBlocks = new List<GameObject>();
 
     public void Init(int gridWidth, int gridHeight)
     {
-        Debug.Log("Board Init");
         elementsOnGrid = new GameObject[gridWidth, gridHeight];
         SetBlockSpawnPositions();
+    }
+    
+    public void NewGame()
+    {
         RequestNewBlockSet();
-    }    
+    }
+
+    public void ResetView()
+    {
+        ClearAll();
+    }
+
+    private void ClearAll()
+    {
+        for (int i = 0; i < elementsOnGrid.GetLength(0); i++)
+        {
+            for (int j = 0; j < elementsOnGrid.GetLength(1); j++)
+            {
+                if(elementsOnGrid[i,j]!=null)
+                {
+                    Destroy(elementsOnGrid[i, j]);
+                }
+            }
+        }
+
+        foreach (var item in availableBlocks)
+        {
+            Destroy(item);
+        }
+
+        availableBlocks.Clear();
+    }
 
     public void SpawnNewBlockSet(GameObject[] blocks)
     {
@@ -47,11 +77,16 @@ public class BoardView : View
     public GameObject SpawnBlock(int spawnPoint, GameObject block)
     {
         GameObject b = Instantiate(block, blockSpawnPositions[spawnPoint], Quaternion.identity, this.transform);
+        availableBlocks.Add(b);
         return b;
     }
 
-    public void SetPlacedEelements(GameObject[] elements, Coordinate[] coordinates)
+    public void SetPlacedEelements(BlockView block, Coordinate[] coordinates)
     {
+        availableBlocks.Remove(block.gameObject);
+
+        GameObject[] elements = block.Elements;
+
         for (int i = 0; i < elements.Length; i++)
         {
             elements[i].transform.parent = transform;
