@@ -17,14 +17,13 @@ public class StartCommand : Command
             mouseControls.name = "Mouse Controls";
             mouseControls.AddComponent<MouseControlsView>();
             mouseControls.transform.parent = contextView.transform;
-    #endif
 
-    #if UNITY_ANDROID
+        #elif UNITY_ANDROID
             GameObject touchControls = new GameObject();
             touchControls.name = "Touch Controls";
             touchControls.AddComponent<TouchControlsView>();
             touchControls.transform.parent = contextView.transform;
-    #endif
+        #endif
 
         newGameSignal.Dispatch();
     }

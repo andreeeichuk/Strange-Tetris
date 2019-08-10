@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class ControlsMediator : Mediator
 {
-    [Inject]
-    public MouseControlsView ControlsView { get; set; }
+    #if UNITY_EDITOR
+        [Inject]
+        public MouseControlsView ControlsView { get; set; }
+    #elif UNITY_ANDROID
+        [Inject]
+        public TouchControlsView ControlsView { get; set; }
+    #endif
 
     [Inject]
     public TryTouchBlockSignal TryTouchBlockSignal { get; set; }

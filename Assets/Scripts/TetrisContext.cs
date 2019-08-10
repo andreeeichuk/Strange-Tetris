@@ -58,10 +58,8 @@ public class TetrisContext : MVCSContext
         mediationBinder.Bind<UIView>().To<UIMediator>();
 
         #if UNITY_EDITOR
-            mediationBinder.Bind<MouseControlsView>().To<ControlsMediator>();
-        #endif
-
-        #if UNITY_ANDROID
+            mediationBinder.Bind<MouseControlsView>().To<ControlsMediator>(); 
+        #elif UNITY_ANDROID
             mediationBinder.Bind<TouchControlsView>().To<ControlsMediator>();
         #endif
     }
